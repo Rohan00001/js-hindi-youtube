@@ -48,14 +48,29 @@
    
     
     document.querySelector('#images').addEventListener('click', function(e){
-        console.log(e.target.tagName);
-        if (e.target.tagName === 'IMG') {
-            console.log(e.target.id);
-            let removeIt = e.target.parentNode
-            removeIt.remove()
-        }
+        // console.log(e);
+        // if (e.target.tagName === 'IMG') {
+        //     console.log(e.target.id);
+        //     let removeIt = e.target.parentNode
+        //     removeIt.remove()
+        // }
     
-        
+        const x = e.clientX;
+        const y = e.clientY;
+
+        const circle = document.createElement('div');
+        circle.style.width = '20px'; // Adjust the circle's size as needed
+        circle.style.height = '20px'; // Same as width for a perfect circle
+        circle.style.borderRadius = '50%';
+        circle.style.backgroundColor = 'red'; // Color of the circle
+        circle.style.position = 'absolute';
+        circle.style.left = x + 'px';
+        circle.style.top = y + 'px';
+
+        document.body.appendChild(circle);
+        setTimeout(()=>{
+            circle.remove();
+        },500)
     })
     
     //removeIt.parentNode.removeChild(removeIt)
