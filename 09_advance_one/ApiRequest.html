@@ -42,61 +42,123 @@
 <div id="card">
 
 </div>
-<img src="" id="image">
-<h1 id="User-name">User Name : </h1>
-<h1 id="followers">Followers : </h1>
-<p id="bio">Bio : </p>
+<form>
+    <label for="fname">User-Namename:</label><br>
+    <input type="text" id="userName" name="fname" ><br>
+    <input type="submit" value="Submit">
+</form>
+<img src="" id="image" style="display: none;">
+<h1 id="User-name" style="display: none;">User Name : </h1>
+<h1 id="followers" style="display: none;">Followers : </h1>
+<p id="bio" style="display: none;">Bio : </p>
 
 
 </div>
 </body>
 <script>
-    const requestUrl = 'https://api.github.com/users/Darkrider0007'
-    let userName;
-    let img;
-    let followers;
-    let bio;
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', requestUrl)
-    xhr.onreadystatechange = function(){
-        console.log(xhr.readyState);
-        if (xhr.readyState === 4) {
-            const data = JSON.parse(this.responseText)
-            //console.log(data);
-            console.log(typeof data);
-            userName= data.login
-            img= data.avatar_url
-            bio= data.bio
-            followers= data.followers
-            console.log(followers);
-            console.log(img);
-            console.log(`User-Name ${userName}`);
-            console.log(bio);
+    const form = document.querySelector('form');
+    form.addEventListener('submit',(e)=>{
+        e.preventDefault();
+        const userNameSearch = document.getElementById('userName');  
+        form.style.display = "none";
+        const requestUrl = 'https://api.github.com/users/' + userNameSearch.value;
+        let userName;
+        let img;
+        let followers;
+        let bio;
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', requestUrl)
+        xhr.onreadystatechange = function () {
+            console.log(xhr.readyState);
+            if (xhr.readyState === 4) {
+                const data = JSON.parse(this.responseText)
+                //console.log(data);
+                console.log(typeof data);
+                userName = data.login
+                img = data.avatar_url
+                bio = data.bio
+                followers = data.followers
+                console.log(followers);
+                console.log(img);
+                console.log(`User-Name ${userName}`);
+                console.log(bio);
 
-            updateUserName(userName);
-            updateimg(img);
-            updateBio(bio);
-            updateFollowers(followers);
+                updateUserName(userName);
+                updateimg(img);
+                updateBio(bio);
+                updateFollowers(followers);
+            }
         }
-    }
-    xhr.send();
+        xhr.send();
 
-    const updateUserName =(userName) => {
-        const user = document.getElementById('User-name');
-        user.innerHTML += `<span>${userName}</span>`
-    }
-    const updateimg = (imagelink) => {
-        const img = document.getElementById('image');
-        img.src = imagelink;
-    }
-    const updateBio = (bio) => {
-        const Bio = document.getElementById('bio');
-        Bio.innerHTML += `<span>${bio}</span>`
-    }
-    const updateFollowers = (follow) => {
-        const Followers = document.getElementById('followers');
-        Followers.innerHTML += `<span>${follow}</span>`;
-    }  
+        const updateUserName = (userName) => {
+            const user = document.getElementById('User-name');
+            user.style.display="block";
+            user.innerHTML += `<span>${userName}</span>`
+        }
+        const updateimg = (imagelink) => {
+            const img = document.getElementById('image');
+            img.style.display = "block";
+            img.src = imagelink;
+        }
+        const updateBio = (bio) => {
+            const Bio = document.getElementById('bio');
+            Bio.style.display = "block";
+            Bio.innerHTML += `<span>${bio}</span>`
+        }
+        const updateFollowers = (follow) => {
+            const Followers = document.getElementById('followers');
+            Followers.style.display = "block";
+            Followers.innerHTML += `<span>${follow}</span>`;
+        }        
+    })
+    //console.log(userNameSearch);
+    // const requestUrl = 'https://api.github.com/users/'+ userNameSearch;
+    // let userName;
+    // let img;
+    // let followers;
+    // let bio;
+    // const xhr = new XMLHttpRequest();
+    // xhr.open('GET', requestUrl)
+    // xhr.onreadystatechange = function(){
+    //     console.log(xhr.readyState);
+    //     if (xhr.readyState === 4) {
+    //         const data = JSON.parse(this.responseText)
+    //         //console.log(data);
+    //         console.log(typeof data);
+    //         userName= data.login
+    //         img= data.avatar_url
+    //         bio= data.bio
+    //         followers= data.followers
+    //         console.log(followers);
+    //         console.log(img);
+    //         console.log(`User-Name ${userName}`);
+    //         console.log(bio);
+
+    //         updateUserName(userName);
+    //         updateimg(img);
+    //         updateBio(bio);
+    //         updateFollowers(followers);
+    //     }
+    // }
+    // xhr.send();
+
+    // const updateUserName =(userName) => {
+    //     const user = document.getElementById('User-name');
+    //     user.innerHTML += `<span>${userName}</span>`
+    // }
+    // const updateimg = (imagelink) => {
+    //     const img = document.getElementById('image');
+    //     img.src = imagelink;
+    // }
+    // const updateBio = (bio) => {
+    //     const Bio = document.getElementById('bio');
+    //     Bio.innerHTML += `<span>${bio}</span>`
+    // }
+    // const updateFollowers = (follow) => {
+    //     const Followers = document.getElementById('followers');
+    //     Followers.innerHTML += `<span>${follow}</span>`;
+    // }  
     
 </script>
 </html>
